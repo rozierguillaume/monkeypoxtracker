@@ -82,9 +82,15 @@
 
     <p><b>1 cas confirmé a été recensé en France.</b></p>
     
-    <div id="graphiqueCasConfirmes" style=""></div>
+    <div id="graphiqueCasConfirmes" style="max-width: 800px;"></div>
 
     <p>Source : Santé publique France</p>
+
+    <h2>Nombre de cas dans le monde</h2>
+    
+    <div id="graphiqueCasConfirmesMonde" style="max-width: 800px;"></div>
+
+    <p>Source : BNO News</p>
 
     <h2>À propos</h2>
     <p>Monkeypox est une maladie infectieuse, caractérisée par une éruption cutanée survenant quelques jours après une apparition de fièvre. La maladie peut durer 2 à 3 semaines. Plus d'informations sur le <a href="https://solidarites-sante.gouv.fr/soins-et-maladies/maladies/maladies-infectieuses/cas-groupes-d-infection-par-le-virus-monkeypox">site du gouvernement</a>.</p>
@@ -105,6 +111,16 @@
       ];
 
       Plotly.newPlot('graphiqueCasConfirmes', data);
+
+      var data = [
+        {
+          x: ["Espagne", "Portugal", "R-U", "Canada", "Belgique", "Italie", "Allemagne", "Pays-Bas", "États-Unis", "Suisse", "France", "Suède", "Israel",  "Grèce"],
+          y: [40, 23, 20, 5, 4, 3, 3, 2, 2, 2, 1, 1, 1, 1, 0],
+          type: 'bar'
+        }
+      ];
+
+      Plotly.newPlot('graphiqueCasConfirmesMonde', data);
     </script>
 
       
