@@ -9,8 +9,7 @@
     <title>MonkeypoxTracker</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
-
-    
+    <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
 
     <!-- Bootstrap core CSS -->
 <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -82,12 +81,26 @@
     <h2>Nombre de cas en France</h2>
     <p><b>1 cas confirmé a été recensé en France.</b></p>
     <p>Source : Santé publique France</p>
+    
+    <div id="graphiqueCasConfirmes" style=""></div>
+
   </div>
 
 </main>
 
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      var data = [
+        {
+          x: ['2022-05-20', '2022-05-21', '2022-05-22'],
+          y: [1, 0, 0],
+          type: 'bar'
+        }
+      ];
+
+      Plotly.newPlot('graphiqueCasConfirmes', data);
+    </script>
 
       
   </body>
