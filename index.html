@@ -82,17 +82,17 @@
   <div class="container">
     <h2 id="CasFrance">Nombre cumulé de cas en France</h2>
 
-    <p><b>33 cas confirmés on été recensé en France.</b></p>
+    <p><b><span id="total_confirmed_france">--</span> cas confirmés on été recensé en France au <span id="date_update_france">--/--/--</span>.</b></p>
     
     <div id="graphiqueCasConfirmes" style="max-width: 800px;"></div>
 
-    <p>Source : Santé publique France</p>
+    <p>Données : Santé publique France, <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
 
     <h2 id="CasMonde">Nombre de cas dans le monde</h2>
     
     <div id="graphiqueCasConfirmesMonde" style="max-width: 800px;"></div>
 
-    <p>Source : BNO News</p>
+    <p>Données : <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
 
     <h2 id="APropos">À propos</h2>
     <p>Monkeypox est une maladie infectieuse, caractérisée par une éruption cutanée survenant quelques jours après une apparition de fièvre. La maladie peut durer 2 à 3 semaines. Plus d'informations sur le <a href="https://solidarites-sante.gouv.fr/soins-et-maladies/maladies/maladies-infectieuses/cas-groupes-d-infection-par-le-virus-monkeypox">site du gouvernement</a>.</p>
@@ -104,25 +104,53 @@
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      var data = [
-        {
-          x: ['2022-05-20', '2022-05-21', '2022-05-24', '2022-05-25', '2022-05-28', '2022-05-30', '2022-06-01'],
-          y: [1, 0, 0, 5, 7, 7, 16, 17, 33],
-          type: 'bar'
+      var data;
+      fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-world-lastdate.json')
+        .then(response => response.json())
+        .then(data => {
+          chart_world(data)
         }
-      ];
+          );
 
-      Plotly.newPlot('graphiqueCasConfirmes', data);
-
-      var data = [
-        {
-          x: ["Espagne", "Portugal", "R-U", "Canada", "Belgique", "Italie", "Allemagne", "Pays-Bas", "États-Unis", "Suisse", "France", "Suède", "Israel",  "Grèce"],
-          y: [160, 138, 208, 58, 4, 3, 43, 2, 40, 23, 1, 33, 1, 1, 0],
-          type: 'bar'
+      fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-france.json')
+        .then(response => response.json())
+        .then(data => {
+          chart_france(data)
+          update_text_france(data)
         }
-      ];
+          );
+      
+      function chart_france(data){
+        var data = [
+          {
+            x: data.dates,
+            y: data.total_confirmed_by_entry,
+            type: 'bar'
+          }
+        ];
 
-      Plotly.newPlot('graphiqueCasConfirmesMonde', data);
+        Plotly.newPlot('graphiqueCasConfirmes', data);
+      }
+
+      function update_text_france(data){
+        this.document.getElementById("total_confirmed_france").innerHTML = data.total_confirmed_by_entry[data.total_confirmed_by_entry.length-1]
+        
+        let date = data.dates[data.dates.length-1]
+        this.document.getElementById("date_update_france").innerHTML = date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3]
+      }
+
+      function chart_world(data){
+        var data = [
+          {
+            x: data.locations,
+            y: data.total_confirmed_by_entry,
+            type: 'bar'
+          }
+        ];
+
+        Plotly.newPlot('graphiqueCasConfirmesMonde', data);
+      }
+  
     </script>
 
       
