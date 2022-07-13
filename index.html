@@ -80,12 +80,15 @@
   </div>
 
   <div class="container">
-    <h2 id="CasFrance">Nombre cumulé de cas en France</h2>
-
-    <p><b><span id="total_confirmed_france">--</span> cas confirmés on été recensé en France au <span id="date_update_france">--/--/--</span>.</b></p>
     
+    <h2 id="CasFrance">Nombre cumulé de cas en France</h2>
+    <p><b><span id="total_confirmed_france">--</span> cas confirmés on été recensé en France au <span id="date_update_france">--/--/--</span>.</b></p>
     <div id="graphiqueCasConfirmes" style="max-width: 800px;"></div>
+    <p>Données : Santé publique France, <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
 
+    <h2 id="CasFrance7Day">Nouveaux cas quotidiens en France</h2>
+    <p><b><span id="7day_confirmed_france">--</span> nouveaux cas confirmés chaque jour en moyenne en France au <span id="date_update_france_7day">--/--/--</span>.</b></p>
+    <div id="graphiqueCasConfirmes7Day" style="max-width: 800px;"></div>
     <p>Données : Santé publique France, <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
 
     <h2 id="CasMonde">Nombre de cas dans le monde</h2>
@@ -105,7 +108,7 @@
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       var data;
-      fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-world-lastdate.json')
+      fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-world-countries-lastdate.json')
         .then(response => response.json())
         .then(data => {
           chart_world(data)
@@ -116,6 +119,7 @@
         .then(response => response.json())
         .then(data => {
           chart_france(data)
+          chart_france_7day(data)
           update_text_france(data)
         }
           );
@@ -125,25 +129,68 @@
           {
             x: data.dates,
             y: data.total_confirmed_by_entry,
-            type: 'bar'
+            type: 'line',
+            line: {
+              color: 'rgb(219, 64, 82)',
+              width: 5
+            }
           }
         ];
 
         Plotly.newPlot('graphiqueCasConfirmes', data);
       }
 
+      function chart_france_7day(data){
+        const array1 = data["7day_confirmed_by_confirmation"]
+
+        var data = [
+          {
+            x: data.dates,
+            y: data["7day_confirmed_by_confirmation"],
+            type: 'scatter',
+            showlegend: false,
+            mode: 'lines+markers',
+            line: {
+              color: 'rgb(219, 64, 82)',
+              width: 2
+            },
+            marker: {
+              color: 'rgb(219, 64, 82)',
+              size: 10
+            }
+          },
+          {
+            x: data.dates,
+            y: data["daily_confirmed_by_confirmation"],
+            type: 'bar',
+            showlegend: false,
+            marker: {
+              color: 'rgba(219, 64, 82, 0.1)',
+            }
+          }
+        ];
+
+        var layout = {
+            yaxis: {range: [0, Math.max(...array1)+10]}
+          };
+
+        Plotly.newPlot('graphiqueCasConfirmes7Day', data, layout);
+      }
+
       function update_text_france(data){
         this.document.getElementById("total_confirmed_france").innerHTML = data.total_confirmed_by_entry[data.total_confirmed_by_entry.length-1]
-        
+        this.document.getElementById("7day_confirmed_france").innerHTML = data["7day_confirmed_by_confirmation"][data.total_confirmed_by_entry.length-1]
+
         let date = data.dates[data.dates.length-1]
         this.document.getElementById("date_update_france").innerHTML = date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3]
+        this.document.getElementById("date_update_france_7day").innerHTML = date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3]
       }
 
       function chart_world(data){
         var data = [
           {
-            x: data.locations,
-            y: data.total_confirmed_by_entry,
+            x: data.locations.slice(0, 20),
+            y: data.total_confirmed_by_entry.slice(0, 20),
             type: 'bar'
           }
         ];
