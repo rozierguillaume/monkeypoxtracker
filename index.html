@@ -89,16 +89,21 @@
     <h2 id="CasFrance7Day">Nouveaux cas quotidiens en France</h2>
     <p><b><span id="7day_confirmed_france">--</span> nouveaux cas confirmés chaque jour en moyenne en France au <span id="date_update_france_7day">--/--/--</span>.</b></p>
     <div id="graphiqueCasConfirmes7Day" style="max-width: 800px;"></div>
-    <p>Données : Santé publique France, <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
+    <p>© monkeypoxtracker.fr • Données : Santé publique France, <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
 
     <h2 id="CasMonde">Nombre de cas dans le monde</h2>
-    
     <div id="graphiqueCasConfirmesMonde" style="max-width: 800px;"></div>
-
     <p>© monkeypoxtracker.fr • Données : <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
+
+    <h2 id="vaccinesFrance">Nombre de personnes vaccinées en France</h2>
+    <i>Aucune donnée disponible</i>.
+    <div id="graphiqueCumulVaccinesFrance" style="max-width: 800px;"></div>
+    <p>© monkeypoxtracker.fr • Données : <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
+
 
     <h2 id="APropos">À propos</h2>
     <p>© monkeypoxtracker.fr • Monkeypox est une maladie infectieuse, caractérisée par une éruption cutanée survenant quelques jours après une apparition de fièvre. La maladie peut durer 2 à 3 semaines. Plus d'informations sur le <a href="https://solidarites-sante.gouv.fr/soins-et-maladies/maladies/maladies-infectieuses/cas-groupes-d-infection-par-le-virus-monkeypox">site du gouvernement</a>.</p>
+
 
   </div>
 
@@ -139,6 +144,24 @@
         ];
 
         Plotly.newPlot('graphiqueCasConfirmes', data);
+      }
+
+      chart_france_cumul_vaccines();
+      function chart_france_cumul_vaccines(){
+        var data = [
+          {
+            x: ["2022-07-29"],
+            y: [],
+            type: 'line',
+            fill: 'tozeroy',
+            line: {
+              color: 'rgb(219, 64, 82)',
+              width: 5
+            }
+          }
+        ];
+
+        Plotly.newPlot('graphiqueCumulVaccinesFrance', data);
       }
 
       function chart_france_7day(data){
