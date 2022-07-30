@@ -98,7 +98,7 @@
     <h2 id="vaccinesFrance">Nombre de personnes vaccinées en France</h2>
     <i>Aucune donnée disponible</i>.
     <div id="graphiqueCumulVaccinesFrance" style="max-width: 800px;"></div>
-    <p>© monkeypoxtracker.fr • Données : <a href="https://raw.githubusercontent.com/owid/notebooks/main/EdouardMathieu/monkeypox/owid-monkeypox-data.csv">OurWorldInData</a>.</p>
+    <p>© monkeypoxtracker.fr • Données : Ministre de la Santé sur Twitter.</p>
 
 
     <h2 id="APropos">À propos</h2>
@@ -150,8 +150,8 @@
       function chart_france_cumul_vaccines(){
         var data = [
           {
-            x: ["2022-07-28", "2022-07-29"],
-            y: [0, 0],
+            x: ["2022-07-27", "2022-07-28"],
+            y: [11284-1581, 11284],
             type: 'line',
             fill: 'tozeroy',
             line: {
