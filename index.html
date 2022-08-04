@@ -144,6 +144,18 @@
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       var data;
+
+      const config = {
+        displayModeBar: false,
+      };
+
+      const layout = {
+        xaxis: {fixedRange: true},
+        yaxis: {fixedRange: true},
+        plot_bgcolor:"rgba(0,0,0,0)",
+        paper_bgcolor:"rgba(0,0,0,0)",
+      };
+
       fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-world-countries-lastdate.json')
         .then(response => response.json())
         .then(data => {
@@ -174,7 +186,7 @@
           }
         ];
 
-        Plotly.newPlot('graphiqueCasConfirmes', data, {plot_bgcolor:"rgba(0,0,0,0)", paper_bgcolor:"rgba(0,0,0,0)"});
+        Plotly.newPlot('graphiqueCasConfirmes', data, layout, config);
       }
 
       chart_france_cumul_vaccines();
@@ -192,7 +204,7 @@
           }
         ];
 
-        Plotly.newPlot('graphiqueCumulVaccinesFrance', data, {plot_bgcolor:"rgba(0,0,0,0)", paper_bgcolor:"rgba(0,0,0,0)"});
+        Plotly.newPlot('graphiqueCumulVaccinesFrance', data, layout, config);
       }
 
       function chart_france_7day(data){
@@ -225,13 +237,11 @@
           }
         ];
 
-        var layout = {
-            yaxis: {range: [0, Math.max(...array1)+10]},
-            plot_bgcolor:"rgba(0,0,0,0)",
-            paper_bgcolor:"rgba(0,0,0,0)"
-          };
+        var layout_chart = {...layout};
+        layout_chart.yaxis.range = [0, Math.max(...array1)+10];
+        layout_chart.yaxis.autorange = false;
 
-        Plotly.newPlot('graphiqueCasConfirmes7Day', data, layout);
+        Plotly.newPlot('graphiqueCasConfirmes7Day', data, layout_chart, config);
       }
 
       function update_text_france(data){
@@ -251,8 +261,11 @@
             type: 'bar'
           }
         ];
+        
+        var layout_chart = {...layout};
+        layout_chart.xaxis = {};
 
-        Plotly.newPlot('graphiqueCasConfirmesMonde', data, {plot_bgcolor:"rgba(0,0,0,0)", paper_bgcolor:"rgba(0,0,0,0)"});
+        Plotly.newPlot('graphiqueCasConfirmesMonde', data, layout_chart, config);
       }
   
     </script>
