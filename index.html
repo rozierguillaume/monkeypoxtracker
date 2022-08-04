@@ -286,7 +286,7 @@
         ];
         
         var layout_chart = {...layout};
-        layout_chart.xaxis = {};
+        layout_chart.xaxis = {fixedrange: true};
 
         Plotly.newPlot('graphiqueCasConfirmesMonde', data, layout_chart, config);
       }
