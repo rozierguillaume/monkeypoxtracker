@@ -165,12 +165,12 @@
       }
 
       function chart_france_7day(data){
-        const array1 = data["7day_confirmed_by_confirmation"]
+        const array1 = data["new_cases_smoothed"]
 
         var data = [
           {
             x: data.dates,
-            y: data["7day_confirmed_by_confirmation"],
+            y: data["new_cases_smoothed"],
             type: 'scatter',
             showlegend: false,
             mode: 'lines+markers',
@@ -185,7 +185,7 @@
           },
           {
             x: data.dates,
-            y: data["daily_confirmed_by_confirmation"],
+            y: data["new_cases"],
             type: 'bar',
             showlegend: false,
             marker: {
@@ -203,7 +203,7 @@
 
       function update_text_france(data){
         this.document.getElementById("total_confirmed_france").innerHTML = data.total_confirmed_by_entry[data.total_confirmed_by_entry.length-1]
-        this.document.getElementById("7day_confirmed_france").innerHTML = data["7day_confirmed_by_confirmation"][data.total_confirmed_by_entry.length-1]
+        this.document.getElementById("7day_confirmed_france").innerHTML = data["new_cases_smoothed"][data.total_confirmed_by_entry.length-1]
 
         let date = data.dates[data.dates.length-1]
         this.document.getElementById("date_update_france").innerHTML = date[8] + date[9] + "/" + date[5] + date[6] + "/" + date[0] + date[1] + date[2] + date[3]
