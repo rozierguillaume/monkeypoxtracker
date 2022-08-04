@@ -42,6 +42,12 @@
         background-color: rgba(255, 255, 255, 1);
       }
 
+      @media only screen and (max-width: 768px) {
+        .card {
+          padding: 20px 20px 20px 20px;
+        }
+      }
+
       .centered {
         margin-left: auto;
         margin-right: auto;
@@ -147,13 +153,21 @@
 
       const config = {
         displayModeBar: false,
+        responsive: true
       };
 
       const layout = {
-        xaxis: {fixedRange: true},
-        yaxis: {fixedRange: true},
+        xaxis: {fixedrange: true},
+        yaxis: {fixedrange: true},
         plot_bgcolor:"rgba(0,0,0,0)",
         paper_bgcolor:"rgba(0,0,0,0)",
+        margin: {
+          l: 35,
+          r: 20,
+          b: 50,
+          t: 50,
+          pad: 4,
+        },
       };
 
       fetch('https://raw.githubusercontent.com/rozierguillaume/monkeypoxtracker-data/main/data/monkeypox-world-countries-lastdate.json')
