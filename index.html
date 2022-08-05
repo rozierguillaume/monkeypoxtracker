@@ -162,7 +162,7 @@
 
       const config = {
         displayModeBar: false,
-        responsive: true
+        responsive: false
       };
 
       const layout = {
@@ -277,7 +277,7 @@
       }
 
       function chart_world(data){
-        var data = [
+        var data_plot = [
           {
             x: data.locations.slice(0, 20),
             y: data.total_confirmed_by_entry.slice(0, 20),
@@ -287,8 +287,9 @@
         
         var layout_chart = {...layout};
         layout_chart.xaxis = {fixedrange: true};
+        layout_chart.yaxis = {range: [0, data.total_confirmed_by_entry.slice(0, 1)[0]]};
 
-        Plotly.newPlot('graphiqueCasConfirmesMonde', data, layout_chart, config);
+        Plotly.newPlot('graphiqueCasConfirmesMonde', data_plot, layout_chart, config);
       }
   
     </script>
