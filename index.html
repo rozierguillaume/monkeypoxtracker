@@ -162,7 +162,7 @@
 
       const config = {
         displayModeBar: false,
-        responsive: false
+        responsive: true
       };
 
       const layout = {
@@ -224,10 +224,54 @@
               color: 'rgb(219, 64, 82)',
               width: 0
             }
-          }
+          },
         ];
+        
+        var layout_chart = {...layout};
+        layout_chart.yaxis = {range: [0, 250000]}
+        layout_chart.shapes = [{
+            type: 'line',
+            xref: 'paper',
+            yref: 'y',
+            x0: 0,
+            y0: 250000,
+            x1: 1,
+            y1: 250000,
+            fillcolor: '#d3d3d3',
+            opacity: 1,
+            line: {
+                width: 1,
+                color: "#0096d1",
+                dash: "dot"
+            }
+        }
+        ]
+        layout_chart.annotations = [{
+            xref: 'paper',
+            yref: 'y',
+            x: 0.5,
+            xanchor: 'middle',
+            y: 250000,
+            yanchor: 'bottom',
+            text: 'Population cible ⤵',
+            showarrow: false,
+            font: {color: "#0096d1"}
+          },
+          {
+            xref: 'x',
+            yref: 'y',
+            x: data[0].x[data[0].x.length-1],
+            xanchor: 'right',
+            y: data[0].y[data[0].y.length-1],
+            yanchor: 'bottom',
+            text: data[0].y[data[0].y.length-1] + ' vaccinés ⤵',
+            showarrow: false,
+            font: {color: "rgb(219, 64, 82)"}
+          },
+        ]
+        
 
-        Plotly.newPlot('graphiqueCumulVaccinesFrance', data, layout, config);
+        Plotly.newPlot('graphiqueCumulVaccinesFrance', data, layout_chart, config);
       }
 
       function chart_france_7day(data){
